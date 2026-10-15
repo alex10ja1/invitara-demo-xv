@@ -1,0 +1,59 @@
+/* ==========================================================================
+   VARIABLES.CSS
+   Aquí vive TODO el sistema de diseño: colores, tipografías, espaciados.
+   Si quieres cambiar la paleta de colores de todo el sitio, este es el
+   ÚNICO archivo que necesitas tocar. Todo lo demás lee de aquí.
+   ========================================================================== */
+
+:root {
+  /* ---------- PALETA DE COLOR ----------
+     Inspirada en invitaciones de boda / XV años: dorado envejecido,
+     champagne y crema, sobre un fondo marfil cálido. */
+  --color-dorado: #B07A6E;          /* Dorado principal (bordes, íconos, acentos) */
+  --color-dorado-oscuro: #8A5248;   /* Dorado profundo (texto sobre claro, sombras de texto) */
+  --color-dorado-claro: #EBCFC7;    /* Dorado pálido (líneas, detalles suaves) */
+  --color-champagne: #F6E3DF;       /* Champagne (fondos de tarjetas) */
+  --color-beige: #F3E7E4;           /* Beige (fondos alternos de sección) */
+  --color-crema: #FDF6F4;           /* Crema (fondo general del sitio) */
+  --color-marfil: #FFFBFA;          /* Marfil casi blanco (tarjetas, formulario) */
+  --color-blanco: #FFFFFF;
+
+  --color-texto: #4A2E30;           /* Texto principal: café cálido, no negro puro */
+  --color-texto-suave: #7A5A5C;     /* Texto secundario / notas */
+  --color-texto-sobre-dorado: #FFFDF8;
+
+  --color-exito: #6E8F5C;           /* Verde suave para confirmaciones */
+  --color-error: #B5544A;           /* Rojo terracota para errores de validación */
+
+  /* ---------- MODO OSCURO (opcional, se activa con [data-tema="oscuro"]) ---------- */
+  --color-crema-oscuro: #221B12;
+  --color-marfil-oscuro: #2A2117;
+  --color-texto-oscuro: #F3E5D0;
+
+  /* ---------- TIPOGRAFÍA ----------
+     Manuscrita elegante para el nombre, serif para el resto. */
+  --fuente-script: 'Great Vibes', cursive;              /* Nombre principal */
+  --fuente-display: 'Playfair Display', serif;          /* Títulos y el número "75" */
+  --fuente-cuerpo: 'Cormorant Garamond', 'Georgia', serif; /* Texto de párrafos, labels, botones */
+
+  /* ---------- ESPACIADO ---------- */
+  --espacio-xs: 0.5rem;
+  --espacio-sm: 1rem;
+  --espacio-md: 2rem;
+  --espacio-lg: 4rem;
+  --espacio-xl: 7rem;
+
+  /* ---------- BORDES Y SOMBRAS ---------- */
+  --radio-borde: 18px;
+  --radio-borde-lg: 32px;
+  --sombra-suave: 0 10px 30px rgba(74, 58, 34, 0.12);
+  --sombra-dorada: 0 8px 24px rgba(198, 161, 91, 0.35);
+  --linea-dorada: 1px solid var(--color-dorado);
+
+  /* ---------- TRANSICIONES ---------- */
+  --transicion-suave: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  --transicion-rapida: 0.2s ease-out;
+
+  /* ---------- ANCHO DE CONTENIDO ---------- */
+  --ancho-maximo: 640px;
+}

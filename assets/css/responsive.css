@@ -1,0 +1,63 @@
+/* ==========================================================================
+   RESPONSIVE.CSS
+   El diseño en style.css ya está pensado "mobile-first" (celular primero).
+   Aquí solo agregamos ajustes para pantallas MÁS GRANDES que un celular,
+   y pequeños retoques para celulares muy angostos.
+   ========================================================================== */
+
+/* ---------- Celulares muy angostos (iPhone SE y similares) ---------- */
+@media (max-width: 360px) {
+  .contador__bloque { width: 70px; padding: 0.7rem 0.3rem; }
+  .contador__numero { font-size: 1.6rem; }
+  .grid-detalles { gap: 0.6rem; }
+  .boton { padding: 0.8rem 1.5rem; font-size: 0.85rem; }
+}
+
+/* ---------- Tablets (a partir de 640px) ---------- */
+@media (min-width: 640px) {
+  :root { --ancho-maximo: 720px; }
+
+  .galeria { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+  .contador__bloque { width: 100px; padding: var(--espacio-sm); }
+  .contador__numero { font-size: 2.4rem; }
+
+  .formulario-confirmacion { padding: var(--espacio-lg) var(--espacio-lg); }
+}
+
+/* ---------- Escritorio (a partir de 1024px) ---------- */
+@media (min-width: 1024px) {
+  :root { --ancho-maximo: 780px; }
+
+  section { padding: var(--espacio-xl) 0; }
+
+  .bienvenida__numero { font-size: 12rem; }
+
+  .grid-detalles { grid-template-columns: repeat(4, 1fr); }
+  .tarjeta--ancha { grid-column: span 2; }
+
+  .galeria { grid-template-columns: repeat(4, 1fr); }
+
+  .foto-principal-wrap { max-width: 460px; }
+
+  /* En pantallas grandes el marco central se ve mejor con algo más de aire */
+  .contenedor { padding: 0 var(--espacio-lg); }
+}
+
+/* ---------- Pantallas muy grandes ---------- */
+@media (min-width: 1440px) {
+  :root { --ancho-maximo: 860px; }
+}
+
+/* ---------- Orientación horizontal en celular (hero no debe verse gigante) ---------- */
+@media (max-height: 480px) and (orientation: landscape) {
+  .seccion-bienvenida { min-height: auto; padding: var(--espacio-lg) var(--espacio-md); }
+  .bienvenida__numero { font-size: 5rem; }
+  .globos { display: none; }
+}
+
+/* ---------- Pantallas táctiles: evitar hover "pegado" ---------- */
+@media (hover: none) {
+  .tarjeta:hover { transform: none; }
+  .galeria__item:hover img { transform: none; }
+}

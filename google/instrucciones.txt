@@ -1,0 +1,79 @@
+==============================================================================
+ CÓMO CONECTAR EL FORMULARIO CON GOOGLE SHEETS (Google Apps Script)
+ No se necesita ningún backend PHP ni servidor propio. Todo es gratuito
+ y vive dentro de tu cuenta de Google.
+==============================================================================
+
+PASO 1 — Crear la hoja de cálculo
+------------------------------------------------------------------------------
+1. Ve a https://sheets.google.com y crea una hoja de cálculo nueva.
+2. Ponle un nombre, por ejemplo: "Confirmaciones - 75 años".
+   (No necesitas crear columnas a mano: el script las crea solo la
+   primera vez que alguien confirme su asistencia).
+
+PASO 2 — Abrir el editor de Apps Script
+------------------------------------------------------------------------------
+1. Dentro de tu hoja de cálculo, ve al menú: Extensiones > Apps Script.
+2. Se abrirá una pestaña nueva con un editor de código.
+3. Borra todo el contenido de "Código.gs" que aparece por defecto.
+
+PASO 3 — Copiar el código
+------------------------------------------------------------------------------
+1. Abre el archivo "appscript.js" (está en esta misma carpeta "google/").
+2. Copia TODO su contenido.
+3. Pégalo dentro del editor de Apps Script, en "Código.gs".
+4. Guarda con el ícono del disquete o Ctrl+S (Cmd+S en Mac).
+
+PASO 4 — Desplegar como aplicación web
+------------------------------------------------------------------------------
+1. Arriba a la derecha, haz clic en "Implementar" > "Nueva implementación".
+2. Haz clic en el ícono de engrane junto a "Seleccionar tipo" y elige
+   "Aplicación web".
+3. Configura así:
+     - Descripción: "Formulario invitación 75 años" (o lo que quieras)
+     - Ejecutar como: "Yo" (tu cuenta de Google)
+     - Quién tiene acceso: "Cualquier usuario"
+       (esto es necesario para que el formulario público pueda enviar
+       datos sin que tus invitados necesiten iniciar sesión en Google)
+4. Haz clic en "Implementar".
+5. Google te pedirá autorizar permisos: acepta y confirma con tu cuenta
+   (puede mostrar una advertencia de "app no verificada"; es normal
+   porque es un script personal — haz clic en "Avanzado" > "Ir a la
+   app (no segura)" para continuar, es completamente seguro porque el
+   código es el que tú mismo revisaste).
+6. Al finalizar, copiarás una URL parecida a esta:
+     https://script.google.com/macros/s/AKfycb.../exec
+
+PASO 5 — Conectar la URL con tu invitación
+------------------------------------------------------------------------------
+1. Abre el archivo: data/configuracion.json
+2. Busca la línea:
+     "urlGoogleAppsScript": "PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT_DESPLEGADO"
+3. Reemplázala con la URL que copiaste en el paso anterior, por ejemplo:
+     "urlGoogleAppsScript": "https://script.google.com/macros/s/AKfycb.../exec"
+4. Guarda el archivo y sube el cambio a GitHub (o pruébalo localmente).
+
+PASO 6 — Probar que funciona
+------------------------------------------------------------------------------
+1. Abre tu invitación (en GitHub Pages o en un servidor local).
+2. Llena el formulario de confirmación y envíalo.
+3. Abre tu Google Sheet: debería aparecer una nueva hoja llamada
+   "Confirmaciones" con una fila nueva por cada envío.
+
+------------------------------------------------------------------------------
+ SI ACTUALIZAS EL CÓDIGO DEL SCRIPT MÁS ADELANTE
+------------------------------------------------------------------------------
+Cada vez que edites "Código.gs" en Apps Script, los cambios NO se
+publican solos: debes ir otra vez a "Implementar" > "Gestionar
+implementaciones" > ícono de lápiz > cambiar versión a "Nueva versión"
+> Implementar. Si no haces esto, tu formulario seguirá usando la
+versión anterior del código.
+
+------------------------------------------------------------------------------
+ SOBRE LA DIRECCIÓN IP
+------------------------------------------------------------------------------
+Apps Script no entrega la IP del visitante de forma nativa. Por eso,
+formulario.js la obtiene desde un servicio público (api.ipify.org)
+directamente en el navegador del invitado y la envía como un campo
+más. Es una IP "reportada por el cliente", útil como referencia, pero
+no debe tratarse como un dato verificado a nivel de servidor.

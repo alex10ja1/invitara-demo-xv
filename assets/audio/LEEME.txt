@@ -1,0 +1,14 @@
+Coloca aquí tu música de fondo con el nombre:
+
+  musica-fondo.mp3
+
+Recomendaciones:
+- Usa formato .mp3 (compatible con todos los navegadores y celulares).
+- Procura que el archivo pese menos de 5 MB para que cargue rápido.
+- Verifica que tengas derecho a usar esa canción (si es una canción
+  comercial protegida por derechos de autor, considera usar música
+  libre de derechos, por ejemplo de https://pixabay.com/music/ o
+  https://freemusicarchive.org/).
+
+Si usas otro nombre de archivo, actualiza el valor
+"musica.archivo" dentro de data/configuracion.json.

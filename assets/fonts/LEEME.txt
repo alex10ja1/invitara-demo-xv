@@ -1,0 +1,20 @@
+Esta carpeta existe por si prefieres alojar las tipografías tú mismo
+en vez de cargarlas desde Google Fonts (CDN).
+
+Por defecto, el proyecto YA FUNCIONA sin tocar esta carpeta: index.html
+y gracias.html cargan las tipografías "Great Vibes", "Playfair Display"
+y "Cormorant Garamond" directamente desde Google Fonts mediante estas
+líneas en el <head>:
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes..." rel="stylesheet">
+
+¿Cuándo usar esta carpeta?
+Solo si quieres que el sitio funcione sin conexión a internet a Google
+Fonts (por ejemplo, para cumplir alguna política de privacidad estricta).
+En ese caso:
+  1. Descarga los archivos .woff2 de las 3 fuentes desde
+     https://fonts.google.com
+  2. Cópialos aquí (assets/fonts/).
+  3. En variables.css, agrega reglas @font-face apuntando a estos
+     archivos, y quita las etiquetas <link> de Google Fonts en los
+     archivos .html.

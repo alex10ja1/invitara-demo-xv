@@ -1,0 +1,96 @@
+/* ==========================================================================
+   ANIMACIONES.CSS
+   Todas las animaciones puras de CSS. Las que necesitan lógica
+   (activarse al hacer scroll, generarse dinámicamente) reciben sus
+   clases desde animaciones.js / scroll.js, pero el keyframe vive aquí.
+   ========================================================================== */
+
+/* ---------- FADE IN genérico ---------- */
+.fade-in { animation: fadeIn 1.1s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- ZOOM IN genérico (usado en pantalla de bienvenida) ---------- */
+.zoom-in { animation: zoomIn 1.2s cubic-bezier(0.22,1,0.36,1) forwards; }
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+.zoom-in-retraso-1 { animation-delay: 0.2s; }
+.zoom-in-retraso-2 { animation-delay: 0.5s; }
+.zoom-in-retraso-3 { animation-delay: 0.8s; }
+
+/* ---------- PARALLAX ----------
+   parallax.js mueve la variable --parallax-y en cada frame de scroll;
+   aquí solo definimos cómo se traduce esa variable en movimiento. */
+.parallax {
+  transform: translateY(var(--parallax-y, 0px));
+  will-change: transform;
+}
+
+/* ---------- CONFETI DORADO (partículas creadas dinámicamente por JS) ----------
+   Cada partícula es un <span class="confeti-particula"> insertado por
+   animaciones.js con una posición y duración aleatoria vía variables
+   inline (--x, --duracion, --retraso, --rotacion). */
+.contenedor-confeti {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+  overflow: hidden;
+}
+.confeti-particula {
+  position: absolute;
+  top: -20px;
+  left: var(--x, 50%);
+  width: var(--tamano, 8px);
+  height: var(--tamano, 8px);
+  background: var(--color, #C6A15B);
+  opacity: 0.85;
+  border-radius: 2px;
+  animation: caer-confeti var(--duracion, 6s) linear var(--retraso, 0s) forwards;
+}
+.confeti-particula--redonda { border-radius: 50%; }
+@keyframes caer-confeti {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+  85% { opacity: 0.85; }
+  100% { transform: translateY(105vh) rotate(var(--rotacion, 360deg)); opacity: 0; }
+}
+
+/* Confeti "explosivo" al confirmar asistencia: partículas más rápidas y numerosas */
+.confeti-particula--burst { animation-name: caer-confeti-burst; }
+@keyframes caer-confeti-burst {
+  0% { transform: translate(0,0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--dx, 0px), 70vh) rotate(var(--rotacion, 720deg)); opacity: 0; }
+}
+
+/* ---------- APARICIÓN PROGRESIVA (usado junto a la clase .revelar de style.css) ---------- */
+.revelar--desde-izquierda { transform: translateX(-40px); }
+.revelar--desde-izquierda.visible { transform: translateX(0); }
+.revelar--desde-derecha { transform: translateX(40px); }
+.revelar--desde-derecha.visible { transform: translateX(0); }
+
+/* ---------- LATIDO SUAVE para el ícono de "confirmar asistencia" ---------- */
+.latido { animation: latido 2.6s ease-in-out infinite; }
+@keyframes latido { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+/* ---------- ANIMACIÓN DE ÉXITO EN EL FORMULARIO ---------- */
+.check-exito {
+  width: 60px; height: 60px;
+  margin: 0 auto var(--espacio-sm);
+}
+.check-exito circle {
+  stroke: var(--color-exito);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: dibujar-circulo 0.6s ease forwards;
+}
+.check-exito path {
+  stroke: var(--color-exito);
+  stroke-width: 3;
+  fill: none;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: dibujar-check 0.4s 0.5s ease forwards;
+}
+@keyframes dibujar-circulo { to { stroke-dashoffset: 0; } }
+@keyframes dibujar-check { to { stroke-dashoffset: 0; } }

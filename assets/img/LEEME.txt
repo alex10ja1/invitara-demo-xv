@@ -1,0 +1,24 @@
+Coloca aquí tus fotos con estos nombres exactos (o cambia las rutas
+correspondientes en index.html y data/configuracion.json si prefieres
+otros nombres):
+
+  foto-principal.jpg   -> Foto principal de la festejada (sección 2)
+                          Recomendado: mínimo 800x1000px, formato vertical.
+
+  og-imagen.jpg        -> Imagen que aparece al compartir el enlace por
+                          WhatsApp/Facebook. Recomendado: 1200x630px.
+
+  galeria-01.jpg
+  galeria-02.jpg
+  galeria-03.jpg
+  galeria-04.jpg
+  galeria-05.jpg
+  galeria-06.jpg       -> Fotos de la galería (sección 11). Puedes agregar
+                          más o menos: solo edita el arreglo "galeria" en
+                          data/configuracion.json.
+
+Sugerencias para que el sitio cargue rápido en celulares:
+- Comprime tus fotos antes de subirlas (por ejemplo con squoosh.app).
+- Usa formato .jpg o .webp, evita .png para fotografías (pesa más).
+- Ancho máximo recomendado: 1600px para la foto principal, 800px para
+  las de la galería.

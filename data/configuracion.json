@@ -1,0 +1,58 @@
+{
+  "_comentario": "INVITACIÓN DE MUESTRA de Invitara. Todos los datos son inventados. Edita SOLO los valores (lo que está a la derecha de los dos puntos).",
+
+  "evento": {
+    "nombreFestejada": "Valeria Montiel",
+    "edad": "15",
+    "fotoPrincipal": "assets/img/foto-principal.jpg",
+    "fraseElegante": "Hay sueños que se cumplen una sola vez en la vida. Quiero que estés conmigo en una noche que nunca voy a olvidar.",
+    "mensajeFinal": "Gracias a mi familia y a mis amigos por acompañarme en este camino. Esta fiesta también es de ustedes."
+  },
+
+  "fechaHora": {
+    "fechaISO": "2026-11-21T20:00:00",
+    "fechaTexto": "Sábado 21 de noviembre, 2026",
+    "horaTexto": "8:00 de la noche",
+    "notaHora": "Misa a las 6:00 pm"
+  },
+
+  "lugar": {
+    "nombreLugar": "Salón de eventos (ejemplo)",
+    "direccion": "Aquí aparece la dirección de tu salón",
+    "latitud": 19.432608,
+    "longitud": -99.133209,
+    "urlGoogleMaps": "https://www.google.com/maps?q=19.432608,-99.133209"
+  },
+
+  "vestimenta": {
+    "codigo": "Formal",
+    "detalle": "El color rosa palo está reservado para la quinceañera."
+  },
+
+  "musica": {
+    "archivo": "",
+    "titulo": "Melodía de fondo"
+  },
+
+  "confirmacion": {
+    "urlGoogleAppsScript": "",
+    "modoDemo": true,
+    "maximoPersonas": 4,
+    "whatsappResponsable": ""
+  },
+
+  "compartir": {
+    "urlSitio": "https://alex10ja1.github.io/invitara-demo-xv/",
+    "tituloCompartir": "Mis XV años · Valeria",
+    "textoWhatsapp": "Mira esta invitación digital de muestra de Invitara:"
+  },
+
+  "galeria": [
+    { "src": "assets/img/galeria-01.jpg", "alt": "Foto de ejemplo 1" },
+    { "src": "assets/img/galeria-02.jpg", "alt": "Foto de ejemplo 2" },
+    { "src": "assets/img/galeria-03.jpg", "alt": "Foto de ejemplo 3" },
+    { "src": "assets/img/galeria-04.jpg", "alt": "Foto de ejemplo 4" },
+    { "src": "assets/img/galeria-05.jpg", "alt": "Foto de ejemplo 5" },
+    { "src": "assets/img/galeria-06.jpg", "alt": "Foto de ejemplo 6" }
+  ]
+}

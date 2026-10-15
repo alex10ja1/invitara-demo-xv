@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="claro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mis XV años · Valeria · Muestra Invitara</title>
+
+  <!-- ============== SEO BÁSICO ============== -->
+  <meta name="description" content="Invitación digital de muestra hecha por Invitara: cuenta regresiva, mapa, galería y confirmación de asistencia.">
+  <meta name="robots" content="noindex, nofollow">
+  <!-- noindex: una invitación personal normalmente NO debe salir en buscadores.
+       Si quieres que sí sea indexable, borra esta línea. -->
+  <meta name="theme-color" content="#B07A6E">
+  <link rel="canonical" href="https://alex10ja1.github.io/invitara-demo-xv/">
+
+  <!-- ============== OPEN GRAPH (vista previa al compartir por WhatsApp / Facebook) ============== -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mis XV años · Valeria">
+  <meta property="og:description" content="Invitación digital de muestra hecha por Invitara. Toca para verla como la verían tus invitados.">
+  <meta property="og:image" content="https://alex10ja1.github.io/invitara-demo-xv/assets/img/og-imagen.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://alex10ja1.github.io/invitara-demo-xv/">
+  <meta property="og:locale" content="es_MX">
+
+  <!-- ============== TWITTER CARD ============== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mis XV años · Valeria">
+  <meta name="twitter:description" content="Invitación digital de muestra hecha por Invitara.">
+  <meta name="twitter:image" content="https://alex10ja1.github.io/invitara-demo-xv/assets/img/og-imagen.jpg">
+
+  <!-- ============== PWA (opcional) ============== -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/iconos/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/iconos/favicon.svg">
+
+  <!-- ============== TIPOGRAFÍAS (Google Fonts) ============== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- ============== HOJAS DE ESTILO (orden importa: variables primero) ============== -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/animaciones.css">
+  <style>
+    .aviso-muestra{position:fixed;left:0;right:0;top:0;z-index:400;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:nowrap;white-space:nowrap;
+      padding:calc(8px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));
+      background:#6E3B47;color:#FFF3EE;font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;text-decoration:none;text-align:center}
+    .aviso-muestra b{font-weight:600}
+    .aviso-muestra__cta{padding:2px 12px;border:1px solid rgba(255,243,238,.6);border-radius:999px;font-size:14px}
+    .aviso-muestra:focus-visible{outline:3px solid #FFF3EE;outline-offset:-4px}
+    body{padding-top:44px}
+  </style>
+</head>
+<body>
+
+  <!-- ============== TEXTURA DE FONDO (mármol/acuarela, 100% CSS) ============== -->
+  <div class="textura-marmol" aria-hidden="true"></div>
+
+  <!-- ============== PANTALLA DE CARGA ============== -->
+  <div class="pantalla-carga" id="pantalla-carga" aria-hidden="true">
+    <span class="pantalla-carga__numero">XV</span>
+    <span class="pantalla-carga__anillo"></span>
+    <span class="pantalla-carga__texto">Preparando tu invitación</span>
+  </div>
+
+  <!-- ============== BOTONES FLOTANTES ============== -->
+  <button class="boton-musica" id="boton-musica" type="button" aria-label="Reproducir música">
+    <svg class="icono-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 5v14l11-7z" fill="currentColor" stroke="none"/></svg>
+    <svg class="icono-pausa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="5" width="4" height="14" fill="currentColor" stroke="none"/><rect x="14" y="5" width="4" height="14" fill="currentColor" stroke="none"/></svg>
+  </button>
+  <audio id="audio-fondo" preload="none"></audio>
+
+  <button class="boton-tema" id="boton-tema" type="button" aria-label="Cambiar a modo oscuro">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+  </button>
+
+  <!-- ============== AVISO DE MUESTRA (Invitara) ============== -->
+  <a class="aviso-muestra" href="https://alex10ja1.github.io/invitara/" target="_blank" rel="noopener">
+    <span>Muestra hecha por <b>Invitara</b></span>
+    <span class="aviso-muestra__cta">Pide la tuya →</span>
+  </a>
+
+  <main>
+
+    <!-- ============== 1. BIENVENIDA ============== -->
+    <section class="seccion-bienvenida" id="bienvenida" aria-label="Bienvenida">
+      <div class="globos" aria-hidden="true">
+        <span class="globo globo--1"></span>
+        <span class="globo globo--2"></span>
+        <span class="globo globo--3"></span>
+        <span class="globo globo--4"></span>
+        <span class="globo globo--5"></span>
+      </div>
+
+      <p class="bienvenida__eyebrow zoom-in">Mis XV años</p>
+
+      <div class="bienvenida__laureles zoom-in zoom-in-retraso-1">
+        <svg viewBox="0 0 40 90" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M30 5C18 15 10 30 10 45c0 15 8 30 20 40"/>
+          <path d="M12 15c4 2 8 2 11 0M9 27c4 2 8 2 12 0M8 40c4 2 9 2 13 0M9 53c4 2 9 3 13 1M13 65c4 2 8 3 12 2M18 76c3 1 6 2 9 2"/>
+        </svg>
+        <span class="bienvenida__numero">XV</span>
+        <svg class="espejo" viewBox="0 0 40 90" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M30 5C18 15 10 30 10 45c0 15 8 30 20 40"/>
+          <path d="M12 15c4 2 8 2 11 0M9 27c4 2 8 2 12 0M8 40c4 2 9 2 13 0M9 53c4 2 9 3 13 1M13 65c4 2 8 3 12 2M18 76c3 1 6 2 9 2"/>
+        </svg>
+      </div>
+
+      <h1 class="bienvenida__titulo zoom-in zoom-in-retraso-2" data-config="evento.nombreFestejada">Valeria Montiel</h1>
+      <p class="bienvenida__subtitulo zoom-in zoom-in-retraso-3">Te invito a celebrar conmigo este día tan especial</p>
+
+      <div class="boton-scroll">
+        <span>Desliza</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </section>
+
+   <!-- ============== 2. FOTO PRINCIPAL ============== -->
+<section class="seccion-foto" id="foto-principal" aria-label="foto principal">
+  <div class="contenedor">
+    <div class="foto-principal-wrap revelar revelar--zoom">
+      <div class="marco-dorado parallax" data-velocidad="0.08">
+        <img
+          src="assets/img/foto-principal.jpg"
+          alt="Espacio para la foto de la quinceañera"
+          class="foto-principal"
+          loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- ============== 3. NOMBRE COMPLETO ============== -->
+    <section class="seccion-nombre fondo-champagne" id="nombre" aria-label="Nombre de la festejada">
+      <div class="contenedor texto-centrado">
+        <p class="etiqueta revelar">Mis XV años</p>
+        <h2 class="nombre-festejada revelar" data-config="evento.nombreFestejada">Valeria Montiel</h2>
+        <p class="nombre-festejada__edad revelar">
+          <span data-config="evento.edad">15</span> años de sueños, risas y mucho amor
+        </p>
+      </div>
+    </section>
+
+    <!-- ============== 4. FRASE ELEGANTE ============== -->
+    <section class="seccion-frase" id="frase" aria-label="Frase">
+      <div class="contenedor">
+        <p class="frase-elegante revelar" data-config="evento.fraseElegante">
+          Hay sueños que se cumplen una sola vez en la vida.
+        </p>
+        <div class="divisor-ornamental revelar"><span class="divisor-ornamental__rombo"></span></div>
+      </div>
+    </section>
+
+    <!-- ============== 5. CUENTA REGRESIVA ============== -->
+    <section class="seccion-contador fondo-beige" id="cuenta-regresiva" aria-label="Cuenta regresiva">
+      <div class="contenedor">
+        <p class="etiqueta revelar">Falta muy poco</p>
+        <h2 class="titulo-seccion revelar">Cuenta regresiva</h2>
+
+        <div class="contador revelar" id="contador-bloques">
+          <div class="contador__bloque">
+            <div class="contador__numero" id="contador-dias">00</div>
+            <div class="contador__label">Días</div>
+          </div>
+          <div class="contador__bloque">
+            <div class="contador__numero" id="contador-horas">00</div>
+            <div class="contador__label">Horas</div>
+          </div>
+          <div class="contador__bloque">
+            <div class="contador__numero" id="contador-minutos">00</div>
+            <div class="contador__label">Min</div>
+          </div>
+          <div class="contador__bloque">
+            <div class="contador__numero" id="contador-segundos">00</div>
+            <div class="contador__label">Seg</div>
+          </div>
+        </div>
+        <p class="contador--finalizado" id="contador-finalizado" style="display:none;">¡Hoy es el gran día! 🎉</p>
+      </div>
+    </section>
+
+    <!-- ============== 6-10. DETALLES: FECHA, HORA, LUGAR, VESTIMENTA + MAPA ============== -->
+    <section class="seccion-detalles" id="detalles" aria-label="Detalles del evento">
+      <div class="contenedor">
+        <p class="etiqueta revelar">Detalles</p>
+        <h2 class="titulo-seccion revelar">Fecha, hora y lugar</h2>
+
+        <div class="grid-detalles">
+          <div class="tarjeta revelar">
+            <svg class="tarjeta__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+            <div class="tarjeta__titulo">Fecha</div>
+            <div class="tarjeta__valor" data-config="fechaHora.fechaTexto">Sábado 14 de Noviembre, 2026</div>
+          </div>
+
+          <div class="tarjeta revelar">
+            <svg class="tarjeta__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            <div class="tarjeta__titulo">Hora</div>
+            <div class="tarjeta__valor" data-config="fechaHora.horaTexto">7:00 de la noche</div>
+            <div class="tarjeta__nota" data-config="fechaHora.notaHora">Se ruega puntualidad</div>
+          </div>
+
+          <div class="tarjeta tarjeta--ancha revelar">
+            <svg class="tarjeta__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.4"/></svg>
+            <div class="tarjeta__titulo">Lugar</div>
+            <div class="tarjeta__valor" data-config="lugar.nombreLugar">Salón Jardín Villa Dorada</div>
+            <div class="tarjeta__nota" data-config="lugar.direccion">Av. de las Rosas 245, Col. Los Encinos</div>
+          </div>
+
+          <div class="tarjeta tarjeta--ancha revelar">
+            <svg class="tarjeta__icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3l4 3 4-3 3 5-3 2v9a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-9L4 8z"/></svg>
+            <div class="tarjeta__titulo">Código de vestimenta</div>
+            <div class="tarjeta__valor" data-config="vestimenta.codigo">Formal</div>
+            <div class="tarjeta__nota" data-config="vestimenta.detalle">Paleta dorado, champagne y beige.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== 9. MAPA ============== -->
+    <section class="seccion-mapa fondo-champagne" id="mapa" aria-label="Ubicación en el mapa">
+      <div class="contenedor">
+        <p class="etiqueta revelar">Cómo llegar</p>
+        <h2 class="titulo-seccion revelar">Ubicación</h2>
+        <div class="mapa-embed revelar">
+          <iframe id="mapa-iframe" src="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="acciones-mapa revelar">
+          <a class="boton boton--relleno" id="boton-abrir-maps" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.4"/></svg>
+            Abrir en Google Maps
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== 11. GALERÍA ============== -->
+    <section class="seccion-galeria" id="galeria" aria-label="Galería de fotos">
+      <div class="contenedor">
+        <p class="etiqueta revelar">Recuerdos</p>
+        <h2 class="titulo-seccion revelar">Galería</h2>
+        <div class="galeria" id="galeria-grid"><!-- Generado dinámicamente por app.js desde configuracion.json --></div>
+      </div>
+    </section>
+
+  <!-- ============== 12. CONFIRMACIÓN DE ASISTENCIA ============== -->
+<section class="seccion-confirmacion fondo-beige" id="confirmacion" aria-label="Confirmación de asistencia">
+  <div class="contenedor">
+    <p class="etiqueta revelar">Tu presencia es el mejor regalo</p>
+    <h2 class="titulo-seccion revelar">Confirma tu asistencia</h2>
+
+    <form
+      class="formulario-confirmacion revelar"
+      id="formulario-rsvp"
+      novalidate>
+
+      <div class="campo">
+        <label for="form-responsable">Nombre del responsable</label>
+        <input type="text" id="form-responsable" name="responsable" required autocomplete="name">
+        <span class="campo__error">Escribe tu nombre completo.</span>
+      </div>
+
+      <div class="campo">
+        <label for="form-cantidad">Número de personas (máx. 4)</label>
+        <select id="form-cantidad" name="cantidad" required>
+          <option value="1">1 persona</option>
+          <option value="2">2 personas</option>
+          <option value="3">3 personas</option>
+          <option value="4">4 personas</option>
+        </select>
+      </div>
+
+      <div class="campo campo-persona visible" data-persona="1">
+        <label for="form-persona1">Nombre — Persona 1</label>
+        <input type="text" id="form-persona1" name="persona1" required>
+        <span class="campo__error">Escribe el nombre de la persona 1.</span>
+      </div>
+
+      <div class="campo campo-persona personas-adicionales" data-persona="2">
+        <label for="form-persona2">Nombre — Persona 2</label>
+        <input type="text" id="form-persona2" name="persona2">
+        <span class="campo__error">Escribe el nombre de la persona 2.</span>
+      </div>
+
+      <div class="campo campo-persona personas-adicionales" data-persona="3">
+        <label for="form-persona3">Nombre — Persona 3</label>
+        <input type="text" id="form-persona3" name="persona3">
+        <span class="campo__error">Escribe el nombre de la persona 3.</span>
+      </div>
+
+      <div class="campo campo-persona personas-adicionales" data-persona="4">
+        <label for="form-persona4">Nombre — Persona 4</label>
+        <input type="text" id="form-persona4" name="persona4">
+        <span class="campo__error">Escribe el nombre de la persona 4.</span>
+      </div>
+
+      <div class="campo">
+        <label for="form-comentarios">Comentarios</label>
+        <textarea id="form-comentarios" name="comentarios"></textarea>
+      </div>
+
+      <button type="submit" class="boton boton--relleno boton--bloque">
+        Confirmar asistencia
+      </button>
+
+      <p class="formulario__estado" id="formulario-estado" role="status"></p>
+    </form>
+  </div>
+</section>
+
+    <!-- ============== 13. MENSAJE FINAL ============== -->
+    <section class="seccion-mensaje-final" id="mensaje-final" aria-label="Mensaje final">
+      <div class="contenedor">
+        <div class="divisor-ornamental revelar"><span class="divisor-ornamental__rombo"></span></div>
+        <p class="mensaje-final__texto revelar" data-config="evento.mensajeFinal">
+          Gracias a mi familia y a mis amigos.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============== 14. GRACIAS POR ACOMPAÑARNOS ============== -->
+    <section class="seccion-agradecimiento fondo-champagne" id="agradecimiento" aria-label="Agradecimiento">
+      <div class="contenedor">
+        <p class="etiqueta revelar">Gracias por acompañarnos</p>
+        <p class="agradecimiento__firma revelar" data-config="evento.nombreFestejada">Valeria</p>
+
+        <div class="acciones-finales revelar">
+          <a class="boton" id="boton-whatsapp" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.6 14.2c-.2.6-1.4 1.2-1.9 1.3-.5.1-1.1.2-3.1-.6-2.6-1.1-4.3-3.7-4.4-3.9-.1-.2-1-1.3-1-2.5s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.7.7 1.8.1.2.1.3 0 .5-.2.4-.4.6-.7.9-.1.1-.2.3 0 .6.3.6 1 1.4 1.7 2 .9.7 1.6 1 1.9 1.1.2.1.4.1.5-.1.2-.2.6-.7.8-.9.2-.2.3-.2.5-.1l1.6.8c.2.1.4.2.4.4.1.2.1.7-.1 1.3z"/></svg>
+            Compartir por WhatsApp
+          </a>
+          <a class="boton" id="boton-calendario-google" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+            Google Calendar
+          </a>
+          <button class="boton" id="boton-calendario-ics" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+            Descargar .ics
+          </button>
+        </div>
+
+        <div class="qr-codigo revelar">
+          <img id="qr-imagen" src="" alt="Código QR de la invitación" width="140" height="140" loading="lazy">
+          <span>Escanea para volver a esta invitación</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============== LIGHTBOX (visor de foto ampliada de la galería) ============== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__cerrar" id="lightbox-cerrar" type="button" aria-label="Cerrar">×</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- ============== SCRIPTS (cada módulo se expone en window.Invitacion*; app.js los conecta al final) ============== -->
+  <script src="assets/js/contador.js"></script>
+  <script src="assets/js/musica.js"></script>
+  <script src="assets/js/maps.js"></script>
+  <script src="assets/js/scroll.js"></script>
+  <script src="assets/js/animaciones.js"></script>
+  <script src="assets/js/formulario.js?v=31"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

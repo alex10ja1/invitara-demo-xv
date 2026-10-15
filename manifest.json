@@ -1,0 +1,19 @@
+{
+  "name": "Mis XV años · Valeria (muestra Invitara)",
+  "short_name": "XV Valeria",
+  "description": "Invitación digital de muestra hecha por Invitara.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FBF6EC",
+  "theme_color": "#C6A15B",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/iconos/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
