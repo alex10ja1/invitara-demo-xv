@@ -364,5 +364,53 @@
   <script src="assets/js/animaciones.js"></script>
   <script src="assets/js/formulario.js?v=31"></script>
   <script src="assets/js/app.js"></script>
+  <!-- ============== CONTACTO DE INVITARA (no es parte de la invitación de ejemplo) ============== -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@600&family=Jost:wght@400;500&display=swap">
+  <style>
+    .invitara-contacto{display:block;position:relative;margin:0;padding:48px max(16px,env(safe-area-inset-left,0px)) calc(96px + env(safe-area-inset-bottom,0px));background:#F7EBE8;color:#3A2328;border-top:6px double #B08A4E;font-family:'Jost','Avenir Next','Segoe UI',sans-serif;font-size:16px;line-height:1.5;text-align:left;box-sizing:border-box}
+    .invitara-contacto *{box-sizing:border-box}
+    .invitara-contacto__caja{max-width:460px;margin:0 auto}
+    .invitara-contacto__marca{margin:0;font-family:'Pinyon Script','Snell Roundhand',cursive;font-weight:400;font-size:44px;line-height:1.1;color:#A44A5C}
+    .invitara-contacto__titulo{margin:6px 0 8px;padding:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:30px;line-height:1.15;color:#3A2328;letter-spacing:0;text-transform:none}
+    .invitara-contacto__texto{margin:0 0 20px;font-size:16px;color:#5A3E44}
+    .invitara-contacto__botones{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+    .invitara-contacto__btn{display:flex;align-items:center;gap:12px;min-height:48px;margin:0;padding:10px 18px;border:1px solid #E2C6BF;border-radius:999px;background:#FBF4F2;color:#3A2328;font-family:inherit;font-size:16px;font-weight:500;line-height:1.25;text-decoration:none;text-align:left}
+    .invitara-contacto__btn:hover{border-color:#B08A4E}
+    .invitara-contacto__btn:focus-visible{outline:3px solid #A44A5C;outline-offset:3px}
+    .invitara-contacto__btn svg{flex:none;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .invitara-contacto__btn--principal{min-height:56px;background:#A44A5C;border-color:#A44A5C;color:#FFFFFF}
+    .invitara-contacto__btn--principal:hover{background:#7E3443;border-color:#7E3443}
+    .invitara-contacto__nota{margin:18px 0 0;font-size:13px;color:#5A3E44}
+    @media (min-width:700px){
+      .invitara-contacto__caja{max-width:620px}
+      .invitara-contacto__botones{display:grid;grid-template-columns:1fr 1fr}
+      .invitara-contacto__botones li:first-child{grid-column:1 / -1}
+    }
+  </style>
+  <aside class="invitara-contacto" aria-labelledby="invitara-contacto-titulo">
+    <div class="invitara-contacto__caja">
+      <p class="invitara-contacto__marca">Invitara</p>
+      <h2 class="invitara-contacto__titulo" id="invitara-contacto-titulo">¿Te gustó esta invitación?</h2>
+      <p class="invitara-contacto__texto">Hacemos la tuya con tus datos, tus fotos y tus colores. Atendemos todo México.</p>
+      <ul class="invitara-contacto__botones">
+        <li><a class="invitara-contacto__btn invitara-contacto__btn--principal" data-invitara="whatsapp" href="https://wa.me/525588317904?text=Hola%20Invitara%2C%20vi%20la%20muestra%20y%20quiero%20cotizar%20mi%20invitaci%C3%B3n" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 1c-1-.5-2-1.5-2.5-2.5l1-1-1-2z"/></svg>
+          Cotiza por WhatsApp</a></li>
+        <li><a class="invitara-contacto__btn" data-invitara="canal" href="https://whatsapp.com/channel/0029VbE8isrHFxOuPJSnuC2J" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h3l5 4V6L7 10z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+          Únete al canal de WhatsApp</a></li>
+        <li><a class="invitara-contacto__btn" data-invitara="tiktok" href="https://www.tiktok.com/@invitarafest" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="17" r="3"/><path d="M11 17V4l9-2v12"/><circle cx="17" cy="14" r="3"/></svg>
+          Síguenos en TikTok</a></li>
+        <li><a class="invitara-contacto__btn" data-invitara="facebook" href="https://www.facebook.com/share/1E6AXA1r7j/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c3 0 5 2 5 5"/></svg>
+          Síguenos en Facebook</a></li>
+        <li><a class="invitara-contacto__btn" data-invitara="precios" href="https://alex10ja1.github.io/invitara/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>
+          Ver precios y paquetes</a></li>
+      </ul>
+      <p class="invitara-contacto__nota">Esta página es una muestra con datos de ejemplo.</p>
+    </div>
+  </aside>
 </body>
 </html>
