@@ -44,6 +44,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
   <link rel="stylesheet" href="assets/css/animaciones.css">
+  <link rel="stylesheet" href="assets/css/confirmacion.css?v=1">
   <style>
     .aviso-muestra{position:fixed;left:0;right:0;top:0;z-index:400;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:nowrap;white-space:nowrap;
       padding:calc(8px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));
@@ -251,62 +252,8 @@
     <p class="etiqueta revelar">Tu presencia es el mejor regalo</p>
     <h2 class="titulo-seccion revelar">Confirma tu asistencia</h2>
 
-    <form
-      class="formulario-confirmacion revelar"
-      id="formulario-rsvp"
-      novalidate>
-
-      <div class="campo">
-        <label for="form-responsable">Nombre del responsable</label>
-        <input type="text" id="form-responsable" name="responsable" required autocomplete="name">
-        <span class="campo__error">Escribe tu nombre completo.</span>
-      </div>
-
-      <div class="campo">
-        <label for="form-cantidad">Número de personas (máx. 4)</label>
-        <select id="form-cantidad" name="cantidad" required>
-          <option value="1">1 persona</option>
-          <option value="2">2 personas</option>
-          <option value="3">3 personas</option>
-          <option value="4">4 personas</option>
-        </select>
-      </div>
-
-      <div class="campo campo-persona visible" data-persona="1">
-        <label for="form-persona1">Nombre — Persona 1</label>
-        <input type="text" id="form-persona1" name="persona1" required>
-        <span class="campo__error">Escribe el nombre de la persona 1.</span>
-      </div>
-
-      <div class="campo campo-persona personas-adicionales" data-persona="2">
-        <label for="form-persona2">Nombre — Persona 2</label>
-        <input type="text" id="form-persona2" name="persona2">
-        <span class="campo__error">Escribe el nombre de la persona 2.</span>
-      </div>
-
-      <div class="campo campo-persona personas-adicionales" data-persona="3">
-        <label for="form-persona3">Nombre — Persona 3</label>
-        <input type="text" id="form-persona3" name="persona3">
-        <span class="campo__error">Escribe el nombre de la persona 3.</span>
-      </div>
-
-      <div class="campo campo-persona personas-adicionales" data-persona="4">
-        <label for="form-persona4">Nombre — Persona 4</label>
-        <input type="text" id="form-persona4" name="persona4">
-        <span class="campo__error">Escribe el nombre de la persona 4.</span>
-      </div>
-
-      <div class="campo">
-        <label for="form-comentarios">Comentarios</label>
-        <textarea id="form-comentarios" name="comentarios"></textarea>
-      </div>
-
-      <button type="submit" class="boton boton--relleno boton--bloque">
-        Confirmar asistencia
-      </button>
-
-      <p class="formulario__estado" id="formulario-estado" role="status"></p>
-    </form>
+    <!-- Formulario de Invitara: lo arma assets/js/confirmacion.js con "confirmacion" de data/configuracion.json -->
+    <div class="formulario-confirmacion revelar" data-confirmacion-formulario></div>
   </div>
 </section>
 
@@ -362,7 +309,8 @@
   <script src="assets/js/maps.js"></script>
   <script src="assets/js/scroll.js"></script>
   <script src="assets/js/animaciones.js"></script>
-  <script src="assets/js/formulario.js?v=31"></script>
+  <script src="assets/js/validacion.js?v=1"></script>
+  <script src="assets/js/confirmacion.js?v=1"></script>
   <script src="assets/js/app.js"></script>
   <!-- ============== CONTACTO DE INVITARA (no es parte de la invitación de ejemplo) ============== -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@600&family=Jost:wght@400;500&display=swap">

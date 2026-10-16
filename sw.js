@@ -9,7 +9,7 @@
    actualización de la caché de tus visitantes.
    ========================================================================== */
 
-const NOMBRE_CACHE = 'invitacion-v1';
+const NOMBRE_CACHE = 'invitacion-v2';
 
 const ARCHIVOS_ESENCIALES = [
   './',
@@ -19,9 +19,11 @@ const ARCHIVOS_ESENCIALES = [
   './assets/css/style.css',
   './assets/css/responsive.css',
   './assets/css/animaciones.css',
+  './assets/css/confirmacion.css',
   './assets/js/app.js',
   './assets/js/contador.js',
-  './assets/js/formulario.js',
+  './assets/js/validacion.js',
+  './assets/js/confirmacion.js',
   './assets/js/scroll.js',
   './assets/js/musica.js',
   './assets/js/maps.js',
@@ -48,6 +50,9 @@ self.addEventListener('activate', (evento) => {
 // (sin conexión), responde con la copia guardada en caché.
 self.addEventListener('fetch', (evento) => {
   if (evento.request.method !== 'GET') return;
+  // Solo archivos de la invitación: lo de otros sitios (como el Apps Script de las
+  // confirmaciones) va directo, sin guardarse en caché.
+  if (new URL(evento.request.url).origin !== self.location.origin) return;
 
   evento.respondWith(
     fetch(evento.request)

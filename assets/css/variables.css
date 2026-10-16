@@ -56,4 +56,18 @@
 
   /* ---------- ANCHO DE CONTENIDO ---------- */
   --ancho-maximo: 640px;
+
+  /* ---------- FORMULARIO DE CONFIRMACIÓN (confirmacion.css lee estas) ---------- */
+  --color-principal: var(--color-dorado-oscuro);
+  --color-sobre-principal: var(--color-texto-sobre-dorado);
+  --color-fondo-campo: var(--color-crema);
+  --color-borde: var(--color-dorado-claro);
+}
+
+html[data-tema="oscuro"] .formulario-confirmacion {
+  --color-texto: var(--color-texto-oscuro);
+  --color-texto-suave: #CDB8AE;
+  --color-principal: var(--color-dorado-claro);
+  --color-sobre-principal: var(--color-crema-oscuro);
+  --color-fondo-campo: var(--color-crema-oscuro);
 }

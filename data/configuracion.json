@@ -35,10 +35,12 @@
   },
 
   "confirmacion": {
-    "urlGoogleAppsScript": "",
-    "modoDemo": true,
-    "maximoPersonas": 4,
-    "whatsappResponsable": ""
+    "modo": "demo",
+    "urlAppsScript": "",
+    "fechaLimite": "2026-11-14",
+    "maximoPersonas": 5,
+    "textoPase": "Pase personal",
+    "mensajeExito": "¡Gracias! Tu confirmación quedó registrada."
   },
 
   "compartir": {
