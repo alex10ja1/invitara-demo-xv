@@ -9,10 +9,12 @@
  *   configurarHoja        → una sola vez: crea Confirmaciones, Resumen y Config.
  *   instalarResumenDiario → activa el correo de las 9 pm (opcional).
  *   quitarResumenDiario   → lo desactiva.
+ *   generarClavePanel     → crea la clave del panel de invitados y la guarda en Config.
  *
  * Lo que usa la invitación (no se ejecutan a mano):
  *   doGet  → dice si las confirmaciones siguen abiertas.
- *   doPost → guarda una confirmación.
+ *   doPost → guarda una confirmación, o (con accion "lista" y la clave)
+ *            entrega la lista al panel de invitados.
  *
  * Solo se guardan las columnas de COLUMNAS. Nada de IP ni navegador.
  * ============================================================================
@@ -41,7 +43,16 @@ var AJUSTES = {
   maximoPersonas: 'Máximo de personas por confirmación',
   abierto: 'Confirmaciones abiertas (SÍ/NO)',
   correo: 'Correo para el resumen diario (opcional)',
-  maximoPaquete: 'Máximo de invitados del paquete'
+  maximoPaquete: 'Máximo de invitados del paquete',
+  clavePanel: 'Clave del panel'
+};
+
+// Panel de invitados: clave de 6 caracteres sin letras o números que se confundan (0/O, 1/l/I).
+var PANEL = {
+  alfabeto: 'ABCDEFGHJKMNPQRSTUVWXYZ23456789',
+  largoClave: 6,
+  intentosMaximos: 5,
+  minutosBloqueo: 15
 };
 
 var COLORES = {
@@ -257,6 +268,8 @@ function doPost(e) {
     return respuestaJSON({ ok: false, error: 'No llegaron los datos. Recarga la página e intenta de nuevo.' });
   }
 
+  if (datos.accion === 'lista') return respuestaJSON(responderPanel(datos.clave));
+
   // Campo trampa: las personas no lo ven; si viene lleno, es un robot. Se le responde "ok" sin guardar.
   if (datos.sitioWeb) return respuestaJSON({ ok: true });
 
@@ -373,7 +386,8 @@ function prepararConfig(libro) {
     [AJUSTES.maximoPersonas, 5, 'Cuántas personas puede anotar cada invitado (1 a 20).'],
     [AJUSTES.abierto, 'SÍ', 'Cambia a NO para cerrar las confirmaciones de inmediato.'],
     [AJUSTES.correo, '', 'Si escribes un correo, cada noche a las 9 pm llega un resumen (hay que activarlo con instalarResumenDiario).'],
-    [AJUSTES.maximoPaquete, 200, 'Invitados que incluye el paquete. Solo se usa en el Resumen.']
+    [AJUSTES.maximoPaquete, 200, 'Invitados que incluye el paquete. Se usa en el Resumen y en el panel.'],
+    [AJUSTES.clavePanel, '', 'Clave para entrar al panel de invitados. No la escribas a mano: ejecuta generarClavePanel. Vacía = panel apagado.']
   ];
   var existentes = hoja.getRange(1, 1, Math.max(hoja.getLastRow(), 1), 1).getValues()
     .map(function (f) { return String(f[0]).trim(); });
@@ -386,7 +400,7 @@ function prepararConfig(libro) {
       existentes.push(ajuste[0]);
     }
     hoja.getRange(fila, 1).setNote(ajuste[2]);
-    if (ajuste[0] === AJUSTES.fechaLimite) hoja.getRange(fila, 2).setNumberFormat('@');
+    if (ajuste[0] === AJUSTES.fechaLimite || ajuste[0] === AJUSTES.clavePanel) hoja.getRange(fila, 2).setNumberFormat('@');
     if (ajuste[0] === AJUSTES.abierto) {
       hoja.getRange(fila, 2).setDataValidation(
         SpreadsheetApp.newDataValidation().requireValueInList(['SÍ', 'NO'], true).setAllowInvalid(false).build()
@@ -511,7 +525,147 @@ function enviarResumenDiario() {
 }
 
 
+/* ============================== PANEL DE INVITADOS ============================== */
+
+/**
+ * Ejecútala desde el editor para crear (o cambiar) la clave del panel.
+ * La guarda en Config y la muestra en el registro de ejecución.
+ * Al cambiarla, la clave anterior deja de servir y se quita cualquier bloqueo.
+ */
+function generarClavePanel() {
+  var hoja = obtenerHoja(HOJAS.config);
+  var fila = filaDeAjuste(hoja, AJUSTES.clavePanel);
+  if (!fila) {
+    prepararConfig(SpreadsheetApp.getActiveSpreadsheet());
+    fila = filaDeAjuste(hoja, AJUSTES.clavePanel);
+  }
+  var clave = crearClaveAleatoria();
+  hoja.getRange(fila, 2).setNumberFormat('@').setValue(clave);
+  CacheService.getScriptCache().removeAll(['panel-fallos', 'panel-bloqueado-hasta']);
+  console.log('Clave del panel: ' + clave + '   (también quedó en la pestaña Config). ' +
+    'Mándala a la clienta en un mensaje aparte del link del panel.');
+  return clave;
+}
+
+/** Clave al azar con el alfabeto sin caracteres confusos. */
+function crearClaveAleatoria() {
+  var clave = '';
+  var n = PANEL.alfabeto.length;
+  var limite = 256 - (256 % n); // descarta bytes altos para que todas las letras salgan igual de seguido
+  while (clave.length < PANEL.largoClave) {
+    var bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, Utilities.getUuid() + Date.now());
+    for (var i = 0; i < bytes.length && clave.length < PANEL.largoClave; i++) {
+      var b = bytes[i] & 0xff;
+      if (b < limite) clave += PANEL.alfabeto.charAt(b % n);
+    }
+  }
+  return clave;
+}
+
+function normalizarClave(valor) {
+  return String(valor === undefined || valor === null ? '' : valor).replace(/\s+/g, '').toUpperCase();
+}
+
+/**
+ * Revisa la clave y, si es correcta, entrega totales y lista.
+ * Con 5 claves incorrectas seguidas el panel se bloquea 15 minutos (para todos,
+ * incluso con la clave correcta). Con clave incorrecta nunca se manda ningún dato.
+ */
+function responderPanel(claveRecibida) {
+  var candado = LockService.getScriptLock();
+  if (!candado.tryLock(15000)) return { ok: false, error: 'El panel está ocupado. Intenta de nuevo en unos segundos.' };
+  try {
+    var config = leerConfig();
+    var claveGuardada = normalizarClave(config.clavePanel);
+    if (!claveGuardada) return { ok: false, error: 'El panel todavía no está activado.' };
+
+    var cache = CacheService.getScriptCache();
+    var ahora = Date.now();
+    var bloqueadoHasta = Number(cache.get('panel-bloqueado-hasta')) || 0;
+    if (bloqueadoHasta > ahora) return respuestaBloqueo(Math.ceil((bloqueadoHasta - ahora) / 60000));
+
+    if (normalizarClave(claveRecibida) !== claveGuardada) {
+      var fallos = (Number(cache.get('panel-fallos')) || 0) + 1;
+      if (fallos >= PANEL.intentosMaximos) {
+        cache.put('panel-bloqueado-hasta', String(ahora + PANEL.minutosBloqueo * 60000), PANEL.minutosBloqueo * 60);
+        cache.remove('panel-fallos');
+        return respuestaBloqueo(PANEL.minutosBloqueo);
+      }
+      cache.put('panel-fallos', String(fallos), PANEL.minutosBloqueo * 60);
+      var quedan = PANEL.intentosMaximos - fallos;
+      return {
+        ok: false,
+        claveIncorrecta: true,
+        intentosRestantes: quedan,
+        error: 'Clave incorrecta. ' + (quedan === 1 ? 'Te queda 1 intento.' : 'Te quedan ' + quedan + ' intentos.')
+      };
+    }
+
+    cache.remove('panel-fallos');
+    return armarDatosPanel(config);
+  } catch (error) {
+    console.error(error);
+    return { ok: false, error: 'No se pudo leer la lista. Intenta de nuevo en un momento.' };
+  } finally {
+    candado.releaseLock();
+  }
+}
+
+function respuestaBloqueo(minutos) {
+  return {
+    ok: false,
+    bloqueado: true,
+    minutos: minutos,
+    error: 'Demasiados intentos con clave incorrecta. Espera ' + minutos + (minutos === 1 ? ' minuto' : ' minutos') + ' e intenta de nuevo.'
+  };
+}
+
+/** Totales y lista (la más reciente primero), con los mismos criterios que la pestaña Resumen. */
+function armarDatosPanel(config) {
+  var hoja = obtenerHoja(HOJAS.confirmaciones);
+  var filas = hoja.getLastRow() < 2 ? [] : hoja.getRange(2, 1, hoja.getLastRow() - 1, COLUMNAS.length).getValues()
+    .filter(function (f) { return f[1] !== ''; });
+
+  var totales = { confirmaciones: filas.length, familias: 0, personas: 0, noAsistiran: 0, duplicados: 0 };
+  var lista = filas.map(function (f) {
+    var asistira = String(f[3]);
+    var personas = Number(f[4]) || 0;
+    if (asistira === 'Sí') { totales.familias++; totales.personas += personas; }
+    if (asistira === 'No') totales.noAsistiran++;
+    if (String(f[7]).indexOf('Revisar') === 0) totales.duplicados++;
+    return {
+      fecha: f[0] instanceof Date ? f[0].toISOString() : String(f[0]),
+      nombre: String(f[1]),
+      telefono: String(f[2]),
+      asistira: asistira,
+      personas: personas,
+      asistentes: String(f[5]),
+      mensaje: String(f[6]),
+      duplicado: String(f[7])
+    };
+  }).reverse();
+
+  totales.maximoPaquete = Number(config.maximoPaquete) || 200;
+  totales.faltan = Math.max(0, totales.maximoPaquete - totales.personas);
+
+  return {
+    ok: true,
+    panel: true,
+    evento: config.evento,
+    actualizado: new Date().toISOString(),
+    totales: totales,
+    confirmaciones: lista
+  };
+}
+
+
 /* ============================== AUXILIARES ============================== */
+
+function filaDeAjuste(hoja, etiqueta) {
+  var columna = hoja.getRange(1, 1, Math.max(hoja.getLastRow(), 1), 1).getValues();
+  for (var i = 0; i < columna.length; i++) if (String(columna[i][0]).trim() === etiqueta) return i + 1;
+  return 0;
+}
 
 function obtenerHoja(nombre) {
   var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(nombre);
@@ -537,6 +691,7 @@ function leerConfig() {
     config.fechaLimite = String(config.fechaLimite).trim();
   }
   config.evento = String(config.evento).trim();
+  config.clavePanel = String(config.clavePanel).trim();
   return config;
 }
 
