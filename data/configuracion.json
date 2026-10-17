@@ -35,7 +35,7 @@
   },
 
   "confirmacion": {
-    "modo": "real",
+    "modo": "demo",
     "urlAppsScript": "https://script.google.com/macros/s/AKfycbwFnS-ejHNLialgVGxypYJyFhjHLMZ4WW4yqxuT-upXEUyqiE6C-zNEWGtFme_k7PMm/exec",
     "fechaLimite": "2026-11-14",
     "maximoPersonas": 5,
