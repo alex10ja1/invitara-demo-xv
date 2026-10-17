@@ -27,7 +27,8 @@
     maximoPersonas: 5,
     textoPase: 'Pase personal',
     mensajeExito: '¡Gracias! Tu confirmación quedó registrada.',
-    etiquetaMensaje: 'Mensaje para la festejada'
+    etiquetaMensaje: 'Mensaje para la festejada',
+    textoPrivacidad: 'Tus datos solo los verá la familia organizadora.'
   };
 
   var iniciado = false;
@@ -106,7 +107,7 @@
           '</div>' +
           '<p class="conf__error conf__error--general" id="conf-general-error" hidden></p>' +
           '<button type="submit" class="conf__boton">Enviar confirmación</button>' +
-          '<p class="conf__privacidad">Tus datos solo los verá la familia organizadora.</p>' +
+          '<p class="conf__privacidad">' + escapar(opciones.textoPrivacidad) + '</p>' +
         '</form>' +
         '<div class="conf__resultado" tabindex="-1" hidden></div>' +
         '<p class="conf__estado" role="status" aria-live="polite"></p>' +
