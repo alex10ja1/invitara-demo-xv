@@ -35,13 +35,13 @@
   },
 
   "confirmacion": {
-    "modo": "real",
+    "modo": "demo",
     "urlAppsScript": "https://script.google.com/macros/s/AKfycbwFnS-ejHNLialgVGxypYJyFhjHLMZ4WW4yqxuT-upXEUyqiE6C-zNEWGtFme_k7PMm/exec",
     "fechaLimite": "",
     "maximoPersonas": 5,
     "textoPase": "Pase personal",
     "mensajeExito": "¡Gracias! Tu confirmación quedó registrada.",
-    "textoPrivacidad": "Esta es una invitación de muestra: lo que envíes lo verá Invitara y se borra después de cada demostración."
+    "textoPrivacidad": "Tus datos solo los verá la familia organizadora."
   },
 
   "compartir": {
